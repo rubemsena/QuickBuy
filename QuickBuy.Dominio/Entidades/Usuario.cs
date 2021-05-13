@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace QuickBuy.Dominio.Entidades
 {
-    class Usuario : Entidade
+    public class Usuario : Entidade
     {
         public int Id { get; set; }
         public string Email { get; set; }
@@ -14,11 +14,16 @@ namespace QuickBuy.Dominio.Entidades
         /// <summary>
         /// Um usuario pode ter nenhum ou vários pédidos
         /// </summary>
-        public ICollection<Pedido> Pedidos { get; set; }
+     
+        public virtual ICollection<Pedido> Pedidos { get; set; }
 
         public override void Validate()
         {
-            throw new System.NotImplementedException();
+            if (string.IsNullOrEmpty(Email))
+                AdicionarCritica("Email não foi informado!");
+
+            if (string.IsNullOrEmpty(Senha))
+                AdicionarCritica("Senha não informada!");
         }
     }
 }
